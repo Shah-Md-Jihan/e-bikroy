@@ -1,15 +1,11 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
+import { router } from "./Routes/Routes";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-red-500 text-5xl">Hello</h1>
-      <button className="btn">Button</button>
-      <button className="btn btn-primary">Button</button>
-      <button className="btn btn-secondary">Button</button>
-      <button className="btn btn-accent">Button</button>
-      <button className="btn btn-ghost">Button</button>
-      <button className="btn btn-link">Button</button>
+    <div className="max-w-[1440px] mx-auto">
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }
