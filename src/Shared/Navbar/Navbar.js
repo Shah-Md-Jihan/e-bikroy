@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthProvider";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Successfully Signed Out!");
+      })
+      .catch((error) => console.log(error));
+  };
+
   const menus = (
     <React.Fragment>
       <li>
         <Link to="/allAdd">All Adds</Link>
       </li>
-      <li>
-        <Link to="/login">Sign In</Link>
-      </li>
+
       <li>
         <Link to="/dashboard">Dashboard</Link>
       </li>
@@ -18,6 +28,28 @@ const Navbar = () => {
           Post Add
         </Link>
       </li>
+      {user?.uid ? (
+        <li tabIndex={0}>
+          <span>
+            {user?.displayName ? user?.displayName : user?.email}
+            <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+              <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+            </svg>
+          </span>
+          <ul className="p-2 bg-blue-600">
+            <li>
+              <Link to="/">Profile</Link>
+            </li>
+            <li>
+              <span onClick={handleLogOut}>Sign Out</span>
+            </li>
+          </ul>
+        </li>
+      ) : (
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+      )}
     </React.Fragment>
   );
   return (

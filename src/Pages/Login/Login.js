@@ -1,43 +1,88 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthProvider";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  const [loginError, setLoginError] = useState("");
+
+  const handleLogin = (data) => {
+    login(data.email, data.password)
+      .then((user) => {
+        setLoginError("");
+
+        toast.success("Successfully login!");
+      })
+      .catch((error) => {
+        setLoginError(error.message);
+      });
+  };
   return (
-    <div className="w-1/4 mx-auto my-24">
-      <h2 className="text-center text-xl font-bold">Sign In</h2>
-      <form>
-        <div className="form-control w-full">
-          <label className="label">
-            <span className="label-text">Email</span>
-          </label>
-          <input type="text" placeholder="Type here" className="input input-bordered w-full" />
-        </div>
-        <div className="form-control w-full">
-          <label className="label">
-            <span className="label-text">Password</span>
-          </label>
-          <input type="text" placeholder="Type here" className="input input-bordered w-full" />
-        </div>
-        <div className="form-control w-full mt-4">
-          <p className="mb-2">
-            New to e-Bikroy? please{" "}
-            <Link to="/signUp" className="text-blue-600 font-bold">
-              Sing Up
+    <div className="flex justify-center items-center">
+      <div className="w-[385px] h-[800px] p-6">
+        <h1 className="text-xl font-semibold text-center">Login</h1>
+        {loginError && <p className="text-red-600">{loginError}</p>}
+        <form onSubmit={handleSubmit(handleLogin)}>
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Email</span>
+            </label>
+            <input type="email" {...register("email", { required: "Email Address is required" })} className="input input-bordered w-full" />
+            {errors.email && (
+              <p className="text-red-600 mt-1" role="alert">
+                {errors.email?.message}
+              </p>
+            )}
+          </div>
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
+            <input
+              type="password"
+              {...register("password", {
+                required: "Password field is required",
+              })}
+              className="input input-bordered w-full"
+            />
+            {errors.password && (
+              <p role="alert" className="text-red-600 mt-1">
+                {errors.password?.message}
+              </p>
+            )}
+            <label className="label">
+              <span className="label-text">Forgot password?</span>
+            </label>
+          </div>
+          <div className="form-control w-full">
+            <input type="submit" value="LOGIN" className="btn btn-accent w-full" />
+          </div>
+        </form>
+        <div className="flex flex-col w-full border-opacity-50">
+          <p className="mt-1">
+            New to Doctors Portal?
+            <Link to="/signup" className="text-secondary">
+              Create new account
             </Link>
           </p>
-          <div className="flex flex-col w-full border-opacity-50 mt-4">
-            <button className="btn btn-primary">Sing In</button>
-            <div className="divider">OR</div>
-            <button className="btn btn-active">
-              <span className="mr-2">
-                <FaGoogle />
-              </span>
-              Sing In With Google
-            </button>
-          </div>
+          <div className="divider">OR</div>
+          <button className="btn btn-outline">
+            <span className="mr-2 text-xl font-bold">
+              <FaGoogle />
+            </span>
+            CONTINUE WITH GOOGLE
+          </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
