@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import toast from "react-hot-toast";
+import { FaAngleDown } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -20,31 +21,41 @@ const Navbar = () => {
         <Link to="/allAdd">All Adds</Link>
       </li>
 
-      <li>
-        <Link to="/dashboard">Dashboard</Link>
-      </li>
+      {user?.uid && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
       <li className="lg:hidden">
         <Link to="/" className="text-accent font-bold">
           Post Add
         </Link>
       </li>
+      <li>
+        <Link to="/" className="lg:hidden">
+          Profile
+        </Link>
+      </li>
+      <li>
+        <Link onClick={handleLogOut} className="lg:hidden">
+          Logout
+        </Link>
+      </li>
       {user?.uid ? (
-        <li tabIndex={0}>
-          <span>
+        <div className="dropdown hidden lg:block mt-1 ml-24">
+          <label tabIndex={0} className="btn m-1 bg-blue-600 border-none ">
             {user?.displayName ? user?.displayName : user?.email}
-            <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-              <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-            </svg>
-          </span>
-          <ul className="p-2 bg-blue-600">
+            <FaAngleDown className="ml-2" />
+          </label>
+          <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-blue-600 rounded-b-lg w-52">
             <li>
               <Link to="/">Profile</Link>
             </li>
             <li>
-              <span onClick={handleLogOut}>Sign Out</span>
+              <Link onClick={handleLogOut}>Logout</Link>
             </li>
           </ul>
-        </li>
+        </div>
       ) : (
         <li>
           <Link to="/login">Login</Link>

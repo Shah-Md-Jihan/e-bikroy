@@ -1,12 +1,17 @@
 import React, { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
   const { login } = useContext(AuthContext);
+
   const {
     register,
     formState: { errors },
@@ -19,7 +24,7 @@ const Login = () => {
     login(data.email, data.password)
       .then((user) => {
         setLoginError("");
-
+        navigate(from, { replace: true });
         toast.success("Successfully login!");
       })
       .catch((error) => {
