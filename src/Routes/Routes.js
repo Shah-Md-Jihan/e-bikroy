@@ -10,6 +10,9 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import SellerRegister from "../Pages/Register/SellerRegister";
 import AllBrands from "../Pages/Dashboard/AllBrands/AllBrands";
+import BrandDetails from "../Pages/BrandDetails/BrandDetails";
+import SellerRoute from "./SellerRoute";
+import PostAdd from "../Pages/Dashboard/PostAdd/PostAdd";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +34,11 @@ export const router = createBrowserRouter([
       {
         path: "/register/seller",
         element: <SellerRegister></SellerRegister>,
+      },
+      {
+        path: "/brands/:id",
+        element: <BrandDetails></BrandDetails>,
+        loader: ({ params }) => fetch(`http://127.0.0.1:5000/brands/${params.id}`),
       },
     ],
   },
@@ -60,6 +68,14 @@ export const router = createBrowserRouter([
           <AdminRoute>
             <AllBrands></AllBrands>
           </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/post/add",
+        element: (
+          <SellerRoute>
+            <PostAdd></PostAdd>
+          </SellerRoute>
         ),
       },
     ],
