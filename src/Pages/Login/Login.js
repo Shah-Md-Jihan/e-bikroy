@@ -74,7 +74,7 @@ const Login = () => {
         </form>
         <div className="flex flex-col w-full border-opacity-50">
           <p className="mt-1">
-            New to Doctors Portal?
+            New to e-Bikroy?
             <Link to="/signup" className="text-secondary">
               Create new account
             </Link>

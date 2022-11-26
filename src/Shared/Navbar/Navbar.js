@@ -20,6 +20,9 @@ const Navbar = () => {
       <li>
         <Link to="/allAdd">All Adds</Link>
       </li>
+      <li>
+        <Link to="/register/seller">Be Seller</Link>
+      </li>
 
       {user?.uid && (
         <li>

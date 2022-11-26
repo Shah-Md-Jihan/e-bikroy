@@ -7,6 +7,9 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import SellerRegister from "../Pages/Register/SellerRegister";
+import AllBrands from "../Pages/Dashboard/AllBrands/AllBrands";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +28,10 @@ export const router = createBrowserRouter([
         path: "/signUp",
         element: <Register></Register>,
       },
+      {
+        path: "/register/seller",
+        element: <SellerRegister></SellerRegister>,
+      },
     ],
   },
   {
@@ -41,7 +48,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/add/brand",
-        element: <AddBrand></AddBrand>,
+        element: (
+          <AdminRoute>
+            <AddBrand></AddBrand>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all/brands",
+        element: (
+          <AdminRoute>
+            <AllBrands></AllBrands>
+          </AdminRoute>
+        ),
       },
     ],
   },
