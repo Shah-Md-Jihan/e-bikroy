@@ -5,9 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const AddBrand = () => {
   const imgHostKey = process.env.REACT_APP_image_bb_key;
-  console.log(imgHostKey);
 
-  // console.log(hostingImageKey);
   const {
     register,
     formState: { errors },

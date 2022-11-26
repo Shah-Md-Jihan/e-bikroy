@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const AllBrands = () => {
-  const { data: brands = [], refetch } = useQuery({
+  const { data: brands = [] } = useQuery({
     queryKey: ["brands"],
     queryFn: async () => {
       const res = await fetch("http://127.0.0.1:5000/brands");
