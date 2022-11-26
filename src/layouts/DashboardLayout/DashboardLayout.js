@@ -9,6 +9,7 @@ const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email);
   const [isSeller] = useSeller(user?.email);
+
   return (
     <div>
       <Navbar></Navbar>
@@ -40,7 +41,7 @@ const DashboardLayout = () => {
             {isSeller && (
               <>
                 <li>
-                  <Link to="/">Your Adds</Link>
+                  <Link to={`/dashboard/adds/${user?.email}`}>Your Adds</Link>
                 </li>
                 <li>
                   <Link to="/dashboard/post/add">Post Adds</Link>

@@ -13,6 +13,7 @@ import AllBrands from "../Pages/Dashboard/AllBrands/AllBrands";
 import BrandDetails from "../Pages/BrandDetails/BrandDetails";
 import SellerRoute from "./SellerRoute";
 import PostAdd from "../Pages/Dashboard/PostAdd/PostAdd";
+import YourAdds from "../Pages/Dashboard/YourAdds/YourAdds";
 
 export const router = createBrowserRouter([
   {
@@ -36,9 +37,13 @@ export const router = createBrowserRouter([
         element: <SellerRegister></SellerRegister>,
       },
       {
-        path: "/brands/:id",
-        element: <BrandDetails></BrandDetails>,
-        loader: ({ params }) => fetch(`http://127.0.0.1:5000/brands/${params.id}`),
+        path: "/category/:id",
+        element: (
+          <PrivateRoute>
+            <BrandDetails></BrandDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) => fetch(`http://127.0.0.1:5000/category/${params.id}`),
       },
     ],
   },
@@ -77,6 +82,15 @@ export const router = createBrowserRouter([
             <PostAdd></PostAdd>
           </SellerRoute>
         ),
+      },
+      {
+        path: "/dashboard/adds/:email",
+        element: (
+          <SellerRoute>
+            <YourAdds></YourAdds>,
+          </SellerRoute>
+        ),
+        loader: ({ params }) => fetch(`http://127.0.0.1:5000/adds/${params.email}`),
       },
     ],
   },

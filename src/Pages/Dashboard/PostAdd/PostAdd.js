@@ -45,6 +45,7 @@ const PostAdd = () => {
             resalePrice: data.resalePrice,
             yearOfUse: data.yearOfUse,
             location: data.location,
+            brand: data.brand,
             sellerName: user?.displayName,
             sellerEmail: user?.email,
           };
@@ -60,6 +61,7 @@ const PostAdd = () => {
             .then((result) => {
               toast.success(`Your advertisement added successfully!`);
               reset();
+              navigate(`/dashboard/adds/${user?.email}`);
             });
         }
       });

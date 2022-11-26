@@ -32,7 +32,7 @@ const SellerRegister = () => {
   };
   // user data save in db
   const saveSellerInDB = (name, email) => {
-    const usersData = { name, email, role: "seller" };
+    const usersData = { name, email, role: "seller", verified: "false" };
     fetch("http://127.0.0.1:5000/users", {
       method: "POST",
       headers: {
