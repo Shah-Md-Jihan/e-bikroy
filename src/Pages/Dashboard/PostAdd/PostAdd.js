@@ -58,6 +58,9 @@ const PostAdd = () => {
             sellerName: user?.displayName,
             sellerEmail: user?.email,
             verified: userInfo?.verified,
+            condition: data.condition,
+            mobile: data.mobile,
+            description: data.description,
           };
           //   save adds in database
           fetch("http://127.0.0.1:5000/post/add", {
@@ -185,7 +188,7 @@ const PostAdd = () => {
             <input
               type="text"
               {...register("location", {
-                required: "Year of use is required",
+                required: "Location is required",
               })}
               className="input input-bordered w-full"
             />
@@ -194,6 +197,62 @@ const PostAdd = () => {
                 {errors.location?.message}
               </p>
             )}
+          </div>
+
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Mobile Number</span>
+            </label>
+            <input
+              type="text"
+              {...register("mobile", {
+                required: "Mobile number is required",
+              })}
+              className="input input-bordered w-full"
+            />
+            {errors.mobile && (
+              <p className="text-red-600 mt-1" role="alert">
+                {errors.mobile?.message}
+              </p>
+            )}
+          </div>
+
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Description</span>
+            </label>
+            <textarea
+              rows={5}
+              {...register("description", {
+                required: "Description is required",
+              })}
+              className="input input-bordered w-full"
+            />
+            {errors.description && (
+              <p className="text-red-600 mt-1" role="alert">
+                {errors.description?.message}
+              </p>
+            )}
+          </div>
+
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text">Condition Type</span>
+            </label>
+            <select
+              {...register("condition", {
+                required: "Condition is required",
+              })}
+              className="select input-bordered w-full"
+            >
+              <option disabled selected>
+                Select Condition
+              </option>
+
+              <option value="excellent">Excellent</option>
+              <option value="good">Good</option>
+              <option value="Fair">Fair</option>
+            </select>
           </div>
 
           <div className="form-control w-full">

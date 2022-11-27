@@ -118,7 +118,7 @@ const Navbar = () => {
           <Link to="/login">Login</Link>
         </li>
       )}
-      {userInfo?.role === "seller" && (
+      {user?.uid && userInfo?.role === "seller" && (
         <div className="dropdown mt-1">
           <label tabIndex={4} className="btn m-1 bg-blue-600 border-none">
             {userInfo?.active === "true" ? "Seller" : "User"}

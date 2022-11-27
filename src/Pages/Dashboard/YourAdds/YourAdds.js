@@ -15,6 +15,8 @@ const YourAdds = () => {
               <th>Product Photos</th>
               <th>Product Names</th>
               <th>Brand</th>
+              <th>Resale Price</th>
+              <th>Sales Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -27,8 +29,11 @@ const YourAdds = () => {
                 </td>
                 <td>{add?.name}</td>
                 <td>{add?.brand}</td>
+                <td>$ {add?.resalePrice}</td>
+                <td>available</td>
                 <td>
                   <div className="btn-group">
+                    <button className="btn btn-sm btn-info">Advertise</button>
                     <button className="btn btn-sm btn-warning">Edit</button>
                     <button className="btn btn-sm">Delete</button>
                   </div>

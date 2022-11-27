@@ -34,10 +34,13 @@ const DashboardLayout = () => {
                   <Link to="/dashboard/all/brands">All Brands</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/all/users">All Users</Link>
+                  <Link to="/dashboard/all/users">All Sellers</Link>
                 </li>
                 <li>
-                  <Link to="/">Advertisement</Link>
+                  <Link to="/">All Buyers</Link>
+                </li>
+                <li>
+                  <Link to="/">Reported Items</Link>
                 </li>
               </>
             )}
@@ -45,17 +48,17 @@ const DashboardLayout = () => {
             {isSeller && (
               <>
                 <li>
-                  <Link to={`/dashboard/adds/${user?.email}`}>Your Adds</Link>
+                  <Link to={`/dashboard/adds/${user?.email}`}>My Products</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/post/add">Post Adds</Link>
+                  <Link to="/dashboard/post/add">Add A Product</Link>
                 </li>
               </>
             )}
 
             {!isAdmin && (
               <li>
-                <Link to="/">Your Order</Link>
+                <Link to="/">My Orders</Link>
               </li>
             )}
           </ul>
