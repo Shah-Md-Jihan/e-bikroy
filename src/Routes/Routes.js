@@ -14,6 +14,7 @@ import BrandDetails from "../Pages/BrandDetails/BrandDetails";
 import SellerRoute from "./SellerRoute";
 import PostAdd from "../Pages/Dashboard/PostAdd/PostAdd";
 import YourAdds from "../Pages/Dashboard/YourAdds/YourAdds";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +73,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AllBrands></AllBrands>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all/users",
+        element: (
+          <AdminRoute>
+            <AllUsers></AllUsers>
           </AdminRoute>
         ),
       },

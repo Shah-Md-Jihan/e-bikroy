@@ -30,7 +30,7 @@ const DashboardLayout = () => {
                   <Link to="/dashboard/all/brands">All Brands</Link>
                 </li>
                 <li>
-                  <Link to="/">All Users</Link>
+                  <Link to="/dashboard/all/users">All Users</Link>
                 </li>
                 <li>
                   <Link to="/">Advertisement</Link>

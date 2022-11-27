@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { FaTags } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaCheckCircle, FaTags } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
+import Loader from "../../Shared/Loader/Loader";
 
 const BrandDetails = () => {
   const brandData = useLoaderData();
@@ -15,6 +16,10 @@ const BrandDetails = () => {
       return data;
     },
   });
+
+  if (isLoading) {
+    return <Loader></Loader>;
+  }
   return (
     <div className="px-12 mt-12">
       <h1 className="text-xl font-bold text-blue-600">
@@ -45,7 +50,10 @@ const BrandDetails = () => {
                 <p>Original Price: $ {product?.originalPrice}</p>
                 <p className="font-bold text-blue-600">Resale Price: $ {product?.resalePrice}</p>
                 <p>Used Time: {product?.yearOfUse}</p>
-                <p>Seller: {product?.sellerName}</p>
+                <p className="flex items-center">
+                  Seller: {product?.sellerName}
+                  <span className="ml-1 text-blue-600">{product?.verified === "true" && <FaCheckCircle />}</span>
+                </p>
 
                 <div className="card-actions justify-start">
                   <button className="btn btn-warning btn-sm">Book Now</button>

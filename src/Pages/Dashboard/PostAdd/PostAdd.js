@@ -18,6 +18,14 @@ const PostAdd = () => {
       return data;
     },
   });
+  const { data: userInfo, isUserLoading } = useQuery({
+    queryKey: ["userInfo"],
+    queryFn: async () => {
+      const res = await fetch(`http://127.0.0.1:5000/users/${user?.email}`);
+      const data = await res.json();
+      return data;
+    },
+  });
 
   const {
     register,
@@ -26,6 +34,7 @@ const PostAdd = () => {
     reset,
   } = useForm();
   const navigate = useNavigate();
+
   const handlePostAdd = (data) => {
     const image = data.image[0];
     const formData = new FormData();
@@ -48,6 +57,7 @@ const PostAdd = () => {
             brand: data.brand,
             sellerName: user?.displayName,
             sellerEmail: user?.email,
+            verified: userInfo?.verified,
           };
           //   save adds in database
           fetch("http://127.0.0.1:5000/post/add", {
@@ -66,7 +76,7 @@ const PostAdd = () => {
         }
       });
   };
-  if (isLoading) {
+  if (isLoading || isUserLoading) {
     return <Loader></Loader>;
   }
   return (
