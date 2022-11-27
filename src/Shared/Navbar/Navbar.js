@@ -1,11 +1,52 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import toast from "react-hot-toast";
 import { FaAngleDown } from "react-icons/fa";
+import Loader from "../Loader/Loader";
+import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { data: userInfo = [], isLoading } = useQuery({
+    queryKey: ["users", user?.email],
+    queryFn: async () => {
+      const res = await fetch(`http://127.0.0.1:5000/users/${user?.email}`);
+      const data = await res.json();
+      return data;
+    },
+  });
+  // console.log(userInfo);
+
+  const handleMakeSeller = (id) => {
+    // console.log(id);
+    fetch(`http://localhost:5000/users/activity/change/true/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("You are seller now!");
+          navigate("/");
+        }
+      });
+  };
+  const handleMakeUser = (id) => {
+    // console.log(id);
+    fetch(`http://localhost:5000/users/activity/change/false/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("You are User now!");
+          navigate("/");
+        }
+      });
+  };
 
   const handleLogOut = () => {
     logOut()
@@ -66,8 +107,29 @@ const Navbar = () => {
           <Link to="/login">Login</Link>
         </li>
       )}
+      {userInfo?.role === "seller" && (
+        <div className="dropdown mt-1">
+          <label tabIndex={4} className="btn m-1 bg-blue-600 border-none">
+            {userInfo?.active === "true" ? "Seller" : "User"}
+            <FaAngleDown className="ml-2" />
+          </label>
+          <ul tabIndex={4} className="dropdown-content menu p-2 shadow bg-blue-600  rounded-b-lg  w-52">
+            <li>
+              <label onClick={() => handleMakeSeller(userInfo?._id)}>Seller</label>
+            </li>
+            <li>
+              <label onClick={() => handleMakeUser(userInfo?._id)}>User</label>
+            </li>
+          </ul>
+        </div>
+      )}
     </React.Fragment>
   );
+
+  if (isLoading) {
+    return <Loader></Loader>;
+  }
+
   return (
     <nav>
       <div className="navbar bg-blue-600">

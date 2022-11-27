@@ -19,8 +19,6 @@ const AllUsers = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          // toast.success("Seller Verified!");
-          // refetch();
           fetch(`http://localhost:5000/add/verify/seller/${email}`, {
             method: "PUT",
           })

@@ -1,13 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaCheckCircle, FaTags } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import Loader from "../../Shared/Loader/Loader";
+import BookingModal from "./BookingModal/BookingModal";
+import { AuthContext } from "./../../context/AuthProvider";
+import toast from "react-hot-toast";
 
 const BrandDetails = () => {
+  const { user } = useContext(AuthContext);
   const brandData = useLoaderData();
   const brandName = brandData?.name;
-
+  const [bookedLaptop, setBookedLaptop] = useState(null);
+  // const [loggedInUser, setLoggedInUser] = useState(null);
+  // setLoggedInUser(user);
   const { data: products, isLoading } = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
@@ -28,6 +34,8 @@ const BrandDetails = () => {
           All {brandData?.name} Laptops
         </span>
       </h1>
+
+      {bookedLaptop && <BookingModal bookedLaptop={bookedLaptop} loggedInUser={user} setBookedLaptop={setBookedLaptop}></BookingModal>}
 
       <div className="max-w-[1270px] mx-auto">
         {products?.length === 0 && (
@@ -56,7 +64,9 @@ const BrandDetails = () => {
                 </p>
 
                 <div className="card-actions justify-start">
-                  <button className="btn btn-warning btn-sm">Book Now</button>
+                  <label onClick={() => setBookedLaptop(product)} htmlFor="booking-modal" className="btn btn-warning btn-sm">
+                    Book Now
+                  </label>
                 </div>
               </div>
             </div>

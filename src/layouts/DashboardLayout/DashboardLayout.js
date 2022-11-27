@@ -1,15 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import useAdmin from "../../hooks/useAdmin";
 import useSeller from "../../hooks/useSeller";
+import Loader from "../../Shared/Loader/Loader";
 import Navbar from "../../Shared/Navbar/Navbar";
 
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email);
-  const [isSeller] = useSeller(user?.email);
+  const [isSeller, isSellerLoading] = useSeller(user?.email);
 
+  if (isSellerLoading) {
+    return <Loader></Loader>;
+  }
   return (
     <div>
       <Navbar></Navbar>
