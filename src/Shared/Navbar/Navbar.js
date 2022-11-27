@@ -9,14 +9,25 @@ import { useQuery } from "@tanstack/react-query";
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { data: userInfo = [], isLoading } = useQuery({
-    queryKey: ["users", user?.email],
-    queryFn: async () => {
-      const res = await fetch(`http://127.0.0.1:5000/users/${user?.email}`);
-      const data = await res.json();
-      return data;
-    },
-  });
+  const [userInfo, setUserInfo] = useState(null);
+  console.log(userInfo);
+  useEffect(() => {
+    if (user?.uid) {
+      fetch(`http://127.0.0.1:5000/users/${user?.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setUserInfo(data);
+        });
+    }
+  }, [user?.email]);
+  // const { data: userInfo = [], isLoading } = useQuery({
+  //   queryKey: ["users", user?.email],
+  //   queryFn: async () => {
+  //     const res = await fetch(`http://127.0.0.1:5000/users/${user?.email}`);
+  //     const data = await res.json();
+  //     return data;
+  //   },
+  // });
   // console.log(userInfo);
 
   const handleMakeSeller = (id) => {
@@ -126,9 +137,9 @@ const Navbar = () => {
     </React.Fragment>
   );
 
-  if (isLoading) {
-    return <Loader></Loader>;
-  }
+  // if (isLoading) {
+  //   return <Loader></Loader>;
+  // }
 
   return (
     <nav>

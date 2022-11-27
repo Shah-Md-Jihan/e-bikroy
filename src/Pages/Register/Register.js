@@ -1,12 +1,15 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Register = () => {
-  const { createUser, updateUser } = useContext(AuthContext);
+  const { createUser, updateUser, googleLogin } = useContext(AuthContext);
+  const provider = new GoogleAuthProvider();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -44,6 +47,17 @@ const Register = () => {
     })
       .then((res) => res.json())
       .then((data) => {})
+      .catch((error) => console.error(error));
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin(provider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate("/");
+        toast.success("Login successfull!");
+      })
       .catch((error) => console.error(error));
   };
   return (
@@ -110,7 +124,7 @@ const Register = () => {
             </Link>
           </p>
           <div className="divider">OR</div>
-          <button className="btn btn-outline">
+          <button onClick={handleGoogleLogin} className="btn btn-outline">
             <span className="mr-2 text-xl font-bold">
               <FaGoogle />
             </span>
