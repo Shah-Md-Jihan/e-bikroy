@@ -1,17 +1,15 @@
 import React from "react";
 
-const SingleRecentAdd = () => {
+const SingleRecentAdd = ({ add }) => {
   return (
-    <div className="card card-side bg-base-100 shadow-xl">
+    <div className="card card-side bg-base-100 shadow-xl pl-5">
       <figure>
-        <img src="https://placeimg.com/200/280/arch" alt="Movie" />
+        <img src={add?.image} className="w-40" alt="Movie" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">New movie is released!</h2>
-        <p>Click the button to watch on Jetflix app.</p>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Watch</button>
-        </div>
+        <h2 className="card-title">{add?.name}</h2>
+        <small>Brand: {add?.brand}</small>
+        <p className="text-orange-500 text-semibold">Price: ${add?.resalePrice}</p>
       </div>
     </div>
   );

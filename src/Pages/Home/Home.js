@@ -2,6 +2,7 @@ import React from "react";
 import SearchField from "../../Shared/SearchField/SearchField";
 import Banner from "./Banner/Banner";
 import Category from "./Category";
+
 import RecentAdds from "./RecentAdds";
 
 const Home = () => {

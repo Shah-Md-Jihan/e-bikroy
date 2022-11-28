@@ -99,7 +99,6 @@ export const router = createBrowserRouter([
             <YourAdds></YourAdds>,
           </SellerRoute>
         ),
-        loader: ({ params }) => fetch(`http://127.0.0.1:5000/adds/${params.email}`),
       },
     ],
   },

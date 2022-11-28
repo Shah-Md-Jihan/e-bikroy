@@ -61,6 +61,7 @@ const PostAdd = () => {
             condition: data.condition,
             mobile: data.mobile,
             description: data.description,
+            advertisement: "false",
           };
           //   save adds in database
           fetch("http://127.0.0.1:5000/post/add", {
