@@ -58,7 +58,7 @@ const DashboardLayout = () => {
 
             {!isAdmin && (
               <li>
-                <Link to="/">My Orders</Link>
+                <Link to="/dashboard/my/orders">My Orders</Link>
               </li>
             )}
           </ul>

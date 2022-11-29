@@ -12,8 +12,24 @@ const BrandDetails = () => {
   const brandData = useLoaderData();
   const brandName = brandData?.name;
   const [bookedLaptop, setBookedLaptop] = useState(null);
-  // const [loggedInUser, setLoggedInUser] = useState(null);
-  // setLoggedInUser(user);
+
+  const ordersArray = [];
+  const { data: orders, refetch } = useQuery({
+    queryKey: ["orders"],
+    queryFn: async () => {
+      const res = await fetch(`http://127.0.0.1:5000/order/all/${user?.email}`);
+      const data = await res.json();
+      return data;
+    },
+  });
+
+  orders?.map((order) => {
+    ordersArray.push(order?.productId);
+    refetch();
+  });
+
+  // console.log(ordersArray);
+
   const { data: products, isLoading } = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
@@ -35,7 +51,9 @@ const BrandDetails = () => {
         </span>
       </h1>
 
-      {bookedLaptop && <BookingModal bookedLaptop={bookedLaptop} loggedInUser={user} setBookedLaptop={setBookedLaptop}></BookingModal>}
+      {bookedLaptop && (
+        <BookingModal bookedLaptop={bookedLaptop} loggedInUser={user} setBookedLaptop={setBookedLaptop} refetch={refetch}></BookingModal>
+      )}
 
       <div className="max-w-[1270px] mx-auto">
         {products?.length === 0 && (
@@ -64,9 +82,13 @@ const BrandDetails = () => {
                 </p>
 
                 <div className="card-actions justify-start">
-                  <label onClick={() => setBookedLaptop(product)} htmlFor="booking-modal" className="btn btn-warning btn-sm">
-                    Book Now
-                  </label>
+                  {ordersArray.includes(product?._id) === true ? (
+                    <span className="text-orange-600">Booked</span>
+                  ) : (
+                    <label onClick={() => setBookedLaptop(product)} htmlFor="booking-modal" className="btn btn-warning btn-sm">
+                      Book Now
+                    </label>
+                  )}
                 </div>
               </div>
             </div>

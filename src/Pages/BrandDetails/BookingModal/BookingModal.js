@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-const BookingModal = ({ bookedLaptop, loggedInUser, setBookedLaptop }) => {
+const BookingModal = ({ bookedLaptop, loggedInUser, setBookedLaptop, refetch }) => {
   const {
     register,
     formState: { errors },
@@ -14,12 +14,35 @@ const BookingModal = ({ bookedLaptop, loggedInUser, setBookedLaptop }) => {
 
   const handleBooking = (data) => {
     // const formData = new FormData();
-    const booking = {
-      userName: setValue(data.userName, loggedInUser?.displayName),
+    const order = {
+      // userName: setValue(data.userName, loggedInUser?.displayName),
+      buyerName: data?.userName,
+      buyerEmail: data?.userEmail,
+      buyerLocation: data?.meetingLocation,
+      buyerPhone: data?.phoneNumber,
+      price: data?.resalePrice,
+      productId: bookedLaptop?._id,
+      productName: bookedLaptop?.name,
+      productImage: bookedLaptop?.image,
     };
-    console.log(data);
-    setBookedLaptop(null);
-    toast.success("Your booking is confirmed!");
+    // console.log(data);
+    // console.log(bookedLaptop);
+    //   save adds in database
+    fetch("http://127.0.0.1:5000/order/add", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(order),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        reset();
+        refetch();
+        setBookedLaptop(null);
+        toast.success("Your booking is confirmed!");
+      });
+    // console.log(order);
   };
   return (
     <>

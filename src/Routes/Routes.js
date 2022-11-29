@@ -18,6 +18,7 @@ import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AllBuyers from "../Pages/Dashboard/AllUsers/AllBuyers";
 import Blogs from "../Pages/Blogs/Blogs";
 import NotFoundPage from "../Shared/NotFoundPage/NotFoundPage";
+import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "/dashboard/my/orders",
+        element: <MyOrders></MyOrders>,
       },
       {
         path: "/dashboard/add/brand",
