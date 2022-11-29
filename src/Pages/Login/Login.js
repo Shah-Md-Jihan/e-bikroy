@@ -5,8 +5,6 @@ import { AuthContext } from "../../context/AuthProvider";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { GoogleAuthProvider } from "firebase/auth";
-import { useQuery } from "@tanstack/react-query";
-import Loader from "../../Shared/Loader/Loader";
 
 const Login = () => {
   const location = useLocation();
@@ -15,29 +13,9 @@ const Login = () => {
 
   const { login, googleLogin } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
-  // const [loading, setLoading] = useState(true);
+
   const [checkUser, setCheckUser] = useState("shahmdjihan@gmail.com");
   const [getUserDb, setUserDb] = useState(null);
-
-  // const { data: users = [] } = useQuery({
-  //   queryKey: ["usersInfo", checkUser !== null],
-  //   queryFn: async () => {
-  //     const res = await fetch(`http://127.0.0.1:5000/users/${checkUser}`);
-  //     const data = await res.json();
-  //     return data;
-  //   },
-  // });
-
-  // useEffect(() => {
-  //   fetch(`http://127.0.0.1:5000/users`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setUserDb(data);
-  //       setLoading(false);
-  //     });
-  // }, [checkUser]);
-
-  // console.log(getUserDb);
 
   useEffect(() => {
     fetch(`http://127.0.0.1:5000/users/${checkUser}`)
@@ -82,9 +60,6 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    // if (loading) {
-    //   <Loader></Loader>;
-    // }
     googleLogin(provider)
       .then((result) => {
         const user = result.user;

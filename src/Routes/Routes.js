@@ -16,6 +16,8 @@ import PostAdd from "../Pages/Dashboard/PostAdd/PostAdd";
 import YourAdds from "../Pages/Dashboard/YourAdds/YourAdds";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AllBuyers from "../Pages/Dashboard/AllUsers/AllBuyers";
+import Blogs from "../Pages/Blogs/Blogs";
+import NotFoundPage from "../Shared/NotFoundPage/NotFoundPage";
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +48,11 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) => fetch(`http://127.0.0.1:5000/category/${params.id}`),
+      },
+
+      {
+        path: "/blogs",
+        element: <Blogs></Blogs>,
       },
     ],
   },
@@ -110,5 +117,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage></NotFoundPage>,
   },
 ]);

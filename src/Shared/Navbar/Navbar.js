@@ -122,6 +122,9 @@ const Navbar = () => {
           </ul>
         </div>
       )}
+      <li>
+        <Link to="/blogs">Blogs</Link>
+      </li>
     </React.Fragment>
   );
 

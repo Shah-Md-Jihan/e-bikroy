@@ -8,7 +8,6 @@ import RecentAdds from "./RecentAdds";
 const Home = () => {
   return (
     <div>
-      <SearchField></SearchField>
       <Banner></Banner>
       <Category></Category>
       <RecentAdds></RecentAdds>
