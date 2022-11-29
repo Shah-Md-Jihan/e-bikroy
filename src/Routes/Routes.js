@@ -19,11 +19,14 @@ import AllBuyers from "../Pages/Dashboard/AllUsers/AllBuyers";
 import Blogs from "../Pages/Blogs/Blogs";
 import NotFoundPage from "../Shared/NotFoundPage/NotFoundPage";
 import MyOrders from "../Pages/Dashboard/MyOrders/MyOrders";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import ErrorPage from "../Shared/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -64,6 +67,7 @@ export const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/dashboard",
@@ -72,6 +76,11 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/my/orders",
         element: <MyOrders></MyOrders>,
+      },
+      {
+        path: "/dashboard/payment/:orderId",
+        element: <Payment></Payment>,
+        loader: ({ params }) => fetch(`http://127.0.0.1:5000/order/${params.orderId}`),
       },
       {
         path: "/dashboard/add/brand",
