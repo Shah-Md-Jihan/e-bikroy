@@ -3,14 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import toast from "react-hot-toast";
 import { FaAngleDown } from "react-icons/fa";
-import Loader from "../Loader/Loader";
-import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
-  console.log(userInfo);
+
   useEffect(() => {
     if (user?.uid) {
       fetch(`http://127.0.0.1:5000/users/${user?.email}`)
@@ -20,18 +18,8 @@ const Navbar = () => {
         });
     }
   }, [user?.email]);
-  // const { data: userInfo = [], isLoading } = useQuery({
-  //   queryKey: ["users", user?.email],
-  //   queryFn: async () => {
-  //     const res = await fetch(`http://127.0.0.1:5000/users/${user?.email}`);
-  //     const data = await res.json();
-  //     return data;
-  //   },
-  // });
-  // console.log(userInfo);
 
   const handleMakeSeller = (id) => {
-    // console.log(id);
     fetch(`http://localhost:5000/users/activity/change/true/${id}`, {
       method: "PUT",
     })

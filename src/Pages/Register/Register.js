@@ -5,11 +5,22 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaGoogle } from "react-icons/fa";
 import { GoogleAuthProvider } from "firebase/auth";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../../Shared/Loader/Loader";
 
 const Register = () => {
   const { createUser, updateUser, googleLogin } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
+  const [checkUser, setCheckUser] = useState("shahmdjihan@gmail.com");
+  const { data: users = [], refetch } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await fetch(`http://127.0.0.1:5000/users/${checkUser}`);
+      const data = await res.json();
+      return data;
+    },
+  });
 
   const {
     register,
@@ -18,10 +29,8 @@ const Register = () => {
   } = useForm();
 
   const handleSignUp = (userData) => {
-    console.log(userData);
     createUser(userData.email, userData.password)
       .then((user) => {
-        console.log(user);
         const userInfo = {
           displayName: userData.name,
         };
@@ -54,7 +63,17 @@ const Register = () => {
     googleLogin(provider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        setCheckUser(user?.email);
+        if (users?.email === "shahmdjihan@gmail.com") {
+          <Loader></Loader>;
+          return;
+        }
+        if (users?.email === user?.email) {
+          navigate("/");
+          toast.success("Login successfull!");
+          return;
+        }
+        saveUserInDB(user?.displayName, user?.email);
         navigate("/");
         toast.success("Login successfull!");
       })

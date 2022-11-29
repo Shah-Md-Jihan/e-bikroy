@@ -6,7 +6,7 @@ const AllUsers = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://127.0.0.1:5000/users");
+      const res = await fetch("http://127.0.0.1:5000/sellers");
       const data = await res.json();
       return data;
     },
@@ -48,7 +48,7 @@ const AllUsers = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, i) => (
+            {users?.map((user, i) => (
               <tr key={user?._id}>
                 <th>{i + 1}</th>
                 <td>{user?.name}</td>

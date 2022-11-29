@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { GoogleAuthProvider } from "firebase/auth";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../../Shared/Loader/Loader";
 
 const Login = () => {
   const location = useLocation();
@@ -13,7 +15,37 @@ const Login = () => {
 
   const { login, googleLogin } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
+  // const [loading, setLoading] = useState(true);
+  const [checkUser, setCheckUser] = useState("shahmdjihan@gmail.com");
+  const [getUserDb, setUserDb] = useState(null);
 
+  // const { data: users = [] } = useQuery({
+  //   queryKey: ["usersInfo", checkUser !== null],
+  //   queryFn: async () => {
+  //     const res = await fetch(`http://127.0.0.1:5000/users/${checkUser}`);
+  //     const data = await res.json();
+  //     return data;
+  //   },
+  // });
+
+  // useEffect(() => {
+  //   fetch(`http://127.0.0.1:5000/users`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setUserDb(data);
+  //       setLoading(false);
+  //     });
+  // }, [checkUser]);
+
+  // console.log(getUserDb);
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:5000/users/${checkUser}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserDb(data);
+      });
+  }, [checkUser]);
   const {
     register,
     formState: { errors },
@@ -33,11 +65,41 @@ const Login = () => {
         setLoginError(error.message);
       });
   };
+
+  // user data save in db
+  const saveUserInDB = (name, email) => {
+    const usersData = { name, email, role: "user" };
+    fetch("http://127.0.0.1:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(usersData),
+    })
+      .then((res) => res.json())
+      .then((data) => {})
+      .catch((error) => console.error(error));
+  };
+
   const handleGoogleLogin = () => {
+    // if (loading) {
+    //   <Loader></Loader>;
+    // }
     googleLogin(provider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        setCheckUser(user?.email);
+        if (getUserDb?.email === "shahmdjihan@gmail.com") {
+          return;
+        }
+        if (getUserDb?.email === user?.email) {
+          setLoginError("");
+          toast.success("Successfully login!");
+          navigate(from, { replace: true });
+          return;
+        }
+
+        saveUserInDB(user?.displayName, user?.email);
         setLoginError("");
         navigate(from, { replace: true });
         toast.success("Successfully login!");

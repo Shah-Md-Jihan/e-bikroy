@@ -34,10 +34,10 @@ const DashboardLayout = () => {
                   <Link to="/dashboard/all/brands">All Brands</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard/all/users">All Sellers</Link>
+                  <Link to="/dashboard/all/seller">All Sellers</Link>
                 </li>
                 <li>
-                  <Link to="/">All Buyers</Link>
+                  <Link to="/dashboard/all/buyers">All Buyers</Link>
                 </li>
                 <li>
                   <Link to="/">Reported Items</Link>
