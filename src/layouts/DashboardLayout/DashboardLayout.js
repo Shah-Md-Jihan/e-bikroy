@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import useAdmin from "../../hooks/useAdmin";
 import useSeller from "../../hooks/useSeller";
@@ -10,6 +10,12 @@ const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email);
   const [isSeller, isSellerLoading] = useSeller(user?.email);
+
+  const navLinkStyle = ({ isActive }) => {
+    return {
+      color: isActive ? "#FFC300 " : "",
+    };
+  };
 
   if (isSellerLoading) {
     return <Loader></Loader>;
@@ -28,19 +34,29 @@ const DashboardLayout = () => {
             {isAdmin && (
               <>
                 <li>
-                  <Link to="/dashboard/add/brand">Add Brand</Link>
+                  <NavLink style={navLinkStyle} to="/dashboard/add/brand">
+                    Add Brand
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/dashboard/all/brands">All Brands</Link>
+                  <NavLink style={navLinkStyle} to="/dashboard/all/brands">
+                    All Brands
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/dashboard/all/seller">All Sellers</Link>
+                  <NavLink style={navLinkStyle} to="/dashboard/all/seller">
+                    All Sellers
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/dashboard/all/buyers">All Buyers</Link>
+                  <NavLink style={navLinkStyle} to="/dashboard/all/buyers">
+                    All Buyers
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/">Reported Items</Link>
+                  <NavLink style={navLinkStyle} to="/">
+                    Reported Items
+                  </NavLink>
                 </li>
               </>
             )}
@@ -48,17 +64,23 @@ const DashboardLayout = () => {
             {isSeller && (
               <>
                 <li>
-                  <Link to={`/dashboard/adds/${user?.email}`}>My Products</Link>
+                  <NavLink style={navLinkStyle} to={`/dashboard/adds/${user?.email}`}>
+                    My Products
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/dashboard/post/add">Add A Product</Link>
+                  <NavLink style={navLinkStyle} to="/dashboard/post/add">
+                    Add A Product
+                  </NavLink>
                 </li>
               </>
             )}
 
             {!isAdmin && (
               <li>
-                <Link to="/dashboard/my/orders">My Orders</Link>
+                <NavLink style={navLinkStyle} to="/dashboard/my/orders">
+                  My Orders
+                </NavLink>
               </li>
             )}
           </ul>

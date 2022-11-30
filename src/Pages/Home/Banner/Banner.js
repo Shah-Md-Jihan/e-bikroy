@@ -3,8 +3,8 @@ import bannerImage from "../../../assets/images/banner/banner.jpg";
 
 const Banner = () => {
   return (
-    <div className="flex bg-blue-100">
-      <div className="w-1/2 flex justify-end px-10 items-center">
+    <div className="grid lg:grid-cols-2 grid-cols-1 bg-blue-100">
+      <div className="w-full py-24 flex justify-end px-10 items-center">
         <div className="text-center">
           <h2 className="text-4xl mb-5">
             Welcome to <span className="text-orange-500 font-bold">e-Bikroy</span>
@@ -15,7 +15,7 @@ const Banner = () => {
           </p>
         </div>
       </div>
-      <div className="w-1/2">
+      <div className="w-full">
         <img src={bannerImage} alt="banner image" />
       </div>
     </div>

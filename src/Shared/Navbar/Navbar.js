@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import toast from "react-hot-toast";
 import { FaAngleDown } from "react-icons/fa";
@@ -18,6 +18,12 @@ const Navbar = () => {
         });
     }
   }, [user?.email]);
+
+  const navLinkStyle = ({ isActive }) => {
+    return {
+      color: isActive ? "#FFC300 " : "",
+    };
+  };
 
   const handleMakeSeller = (id) => {
     fetch(`http://localhost:5000/users/activity/change/true/${id}`, {
@@ -58,33 +64,39 @@ const Navbar = () => {
   const menus = (
     <React.Fragment>
       <li>
-        <Link to="/allAdd">All Adds</Link>
+        <NavLink style={navLinkStyle} to="/allAdd">
+          All Adds
+        </NavLink>
       </li>
       {!user?.uid && (
         <li>
-          <Link to="/register/seller">Be Seller</Link>
+          <NavLink style={navLinkStyle} to="/register/seller">
+            Be Seller
+          </NavLink>
         </li>
       )}
 
       {user?.uid && (
         <li>
-          <Link to="/dashboard">Dashboard</Link>
+          <NavLink style={navLinkStyle} to="/dashboard">
+            Dashboard
+          </NavLink>
         </li>
       )}
       <li className="lg:hidden">
-        <Link to="/" className="text-accent font-bold">
+        <NavLink style={navLinkStyle} to="/" className="text-accent font-bold">
           Post Add
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link to="/" className="lg:hidden">
+        <NavLink style={navLinkStyle} to="/" className="lg:hidden">
           Profile
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link onClick={handleLogOut} className="lg:hidden">
+        <NavLink style={navLinkStyle} onClick={handleLogOut} className="lg:hidden">
           Logout
-        </Link>
+        </NavLink>
       </li>
       {user?.uid ? (
         <div className="dropdown hidden lg:block mt-1 ml-24">
@@ -94,16 +106,20 @@ const Navbar = () => {
           </label>
           <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-blue-600 rounded-b-lg w-52">
             <li>
-              <Link to="/">Profile</Link>
+              <NavLink style={navLinkStyle} to="/">
+                Profile
+              </NavLink>
             </li>
             <li>
-              <Link onClick={handleLogOut}>Logout</Link>
+              <NavLink onClick={handleLogOut}>Logout</NavLink>
             </li>
           </ul>
         </div>
       ) : (
         <li>
-          <Link to="/login">Login</Link>
+          <NavLink style={navLinkStyle} to="/login">
+            Login
+          </NavLink>
         </li>
       )}
       {user?.uid && userInfo?.role === "seller" && (
@@ -123,7 +139,9 @@ const Navbar = () => {
         </div>
       )}
       <li>
-        <Link to="/blogs">Blogs</Link>
+        <NavLink style={navLinkStyle} to="/blogs">
+          Blogs
+        </NavLink>
       </li>
     </React.Fragment>
   );
@@ -146,9 +164,9 @@ const Navbar = () => {
               {menus}
             </ul>
           </div>
-          <Link to="/" className="btn btn-ghost normal-case text-xl text-white">
+          <NavLink to="/" className="btn btn-ghost normal-case text-xl text-white">
             e-Bikroy
-          </Link>
+          </NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal p-0 text-white font-semibold">{menus}</ul>

@@ -5,9 +5,9 @@ import Delivery from "../../../assets/images/deliveryBanner/delivery.jpg";
 const DeliveryOffer = () => {
   return (
     <div className="px-12 mt-24">
-      <div className="card card-side bg-base-100 shadow-xl">
-        <figure>
-          <img className="w-80" src={Delivery} alt="Movie" />
+      <div className="card grid grid-cols-1 lg:grid-cols-2 card-side bg-base-100 shadow-xl">
+        <figure className="lg:ml-44">
+          <img className="w-96" src={Delivery} alt="Movie" />
         </figure>
         <div className="card-body pt-12">
           <h2 className="card-title">Get items delivery offer for you!</h2>
