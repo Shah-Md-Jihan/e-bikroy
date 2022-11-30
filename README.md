@@ -6,6 +6,10 @@
 
 ## link: https://e-bikroy.web.app/
 
+### adminEmail: shahmdjihan@gmail.com
+
+### adminPassword: 123456Jj1$
+
 ## Complete project with
 
 - React Router Dom
