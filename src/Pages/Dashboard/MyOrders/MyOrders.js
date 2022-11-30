@@ -44,7 +44,9 @@ const MyOrders = () => {
                   {order?.price && order?.paid && <div className="badge badge-accent badge-outline">Paid</div>}
                 </td>
                 <td>
-                  <button className="btn btn-sm btn-error">Cancel</button>
+                  <button disabled={order?.paid ? true : false} className="btn btn-sm btn-error">
+                    Cancel
+                  </button>
                 </td>
               </tr>
             ))}

@@ -6,8 +6,22 @@ import { AuthContext } from "../../../context/AuthProvider";
 
 const YourAdds = () => {
   const { user } = useContext(AuthContext);
-  // const addsData = useLoaderData();
-  // const [advertisement, setAdvertisement] = useState("");
+
+  const handleDelete = (id) => {
+    const proceed = window.confirm("Are sure to delete this product?");
+    if (proceed) {
+      fetch(`http://127.0.0.1:5000/adds/delete/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+            toast.success("deleted successfully");
+          }
+        });
+    }
+  };
 
   const {
     data: yourProducts,
@@ -62,19 +76,35 @@ const YourAdds = () => {
                 <td>{add?.name}</td>
                 <td>{add?.brand}</td>
                 <td>$ {add?.resalePrice}</td>
-                <td>available</td>
+                <td>
+                  {add?.paid === true ? (
+                    <div className="badge badge-accent badge-outline">Sold</div>
+                  ) : (
+                    <div className="badge badge-secondary badge-outline">Available</div>
+                  )}
+                </td>
                 <td>
                   <div className="btn-group">
                     {add?.advertisement === "false" ? (
-                      <button onClick={() => handleMakeAdvertisement(add?._id)} className="btn btn-sm btn-success">
+                      <button
+                        disabled={add?.paid === true ? true : false}
+                        onClick={() => handleMakeAdvertisement(add?._id)}
+                        className="btn btn-sm btn-success"
+                      >
                         Add To Advertisement
                       </button>
                     ) : (
-                      <button className="btn btn-sm btn-primary">Remove Advertisement</button>
+                      <button disabled={add?.paid === true ? true : false} className="btn btn-sm btn-primary">
+                        Remove Advertisement
+                      </button>
                     )}
 
-                    <button className="btn btn-sm btn-warning">Edit</button>
-                    <button className="btn btn-sm">Delete</button>
+                    <button disabled={add?.paid === true ? true : false} className="btn btn-sm btn-warning">
+                      Edit
+                    </button>
+                    <button disabled={add?.paid === true ? true : false} onClick={() => handleDelete(add?._id)} className="btn btn-sm">
+                      Delete
+                    </button>
                   </div>
                 </td>
               </tr>

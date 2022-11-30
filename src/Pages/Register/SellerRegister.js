@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const SellerRegister = () => {
   const { createUser, updateUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -41,7 +42,9 @@ const SellerRegister = () => {
       body: JSON.stringify(usersData),
     })
       .then((res) => res.json())
-      .then((data) => {})
+      .then((data) => {
+        navigate("/");
+      })
       .catch((error) => console.error(error));
   };
   return (
