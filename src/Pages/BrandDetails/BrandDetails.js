@@ -28,7 +28,7 @@ const BrandDetails = () => {
     refetch();
   });
 
-  // console.log(ordersArray);
+  const paymentStatus = "false";
 
   const { data: products, isLoading } = useQuery({
     queryKey: ["product"],

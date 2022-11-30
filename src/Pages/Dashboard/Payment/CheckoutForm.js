@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ orderData }) => {
-  const { price, buyerName, buyerEmail, _id } = orderData;
+  const { price, buyerName, buyerEmail, _id, productId } = orderData;
   const [cardError, setCardError] = useState("");
 
   const [processing, setProcessing] = useState(false);
@@ -49,7 +49,7 @@ const CheckoutForm = ({ orderData }) => {
     } else {
       setCardError("");
     }
-    setSuccess("");
+
     setProcessing(true);
     const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -72,6 +72,7 @@ const CheckoutForm = ({ orderData }) => {
         transactionId: paymentIntent.id,
         email: buyerEmail,
         orderId: _id,
+        productId: productId,
       };
       fetch("http://127.0.0.1:5000/payments", {
         method: "POST",
