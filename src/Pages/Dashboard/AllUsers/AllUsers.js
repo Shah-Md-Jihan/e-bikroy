@@ -32,9 +32,26 @@ const AllUsers = () => {
         }
       });
   };
+
+  const handleDeleteSeller = (id) => {
+    const proceed = window.confirm("Are sure to delete this product?");
+    if (proceed) {
+      fetch(`http://127.0.0.1:5000/user/delete/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            refetch();
+            toast.success("User deleted successfully");
+          }
+        });
+    }
+  };
+
   return (
     <div>
-      <h1 className="text-3xl">All users</h1>
+      <h1 className="text-3xl">All Seller</h1>
       <div className="overflow-x-auto mt-5">
         <table className="table w-full">
           <thead>
@@ -68,7 +85,9 @@ const AllUsers = () => {
                   )}
                 </td>
                 <td>
-                  <button className="btn btn-sm btn-error">Delete</button>
+                  <button onClick={() => handleDeleteSeller(user?._id)} className="btn btn-sm btn-error">
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
