@@ -6,7 +6,7 @@ const Category = () => {
   const { data: brands = [] } = useQuery({
     queryKey: ["brands"],
     queryFn: async () => {
-      const res = await fetch("http://127.0.0.1:5000/brands");
+      const res = await fetch("https://e-bikroy-server.vercel.app/brands");
       const data = await res.json();
       return data;
     },

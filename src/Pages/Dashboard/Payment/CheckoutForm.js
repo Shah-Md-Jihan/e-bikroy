@@ -17,7 +17,7 @@ const CheckoutForm = ({ orderData }) => {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("http://127.0.0.1:5000/create-payment-intent", {
+    fetch("https://e-bikroy-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ price }),
@@ -74,7 +74,7 @@ const CheckoutForm = ({ orderData }) => {
         orderId: _id,
         productId: productId,
       };
-      fetch("http://127.0.0.1:5000/payments", {
+      fetch("https://e-bikroy-server.vercel.app/payments", {
         method: "POST",
         headers: {
           "content-type": "application/json",

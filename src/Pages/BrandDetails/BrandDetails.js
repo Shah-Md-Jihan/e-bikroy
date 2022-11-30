@@ -17,7 +17,7 @@ const BrandDetails = () => {
   const { data: orders, refetch } = useQuery({
     queryKey: ["orders"],
     queryFn: async () => {
-      const res = await fetch(`http://127.0.0.1:5000/order/all/${user?.email}`);
+      const res = await fetch(`https://e-bikroy-server.vercel.app/order/all/${user?.email}`);
       const data = await res.json();
       return data;
     },
@@ -33,7 +33,7 @@ const BrandDetails = () => {
   const { data: products, isLoading } = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
-      const res = await fetch(`http://127.0.0.1:5000/products/${brandName}`);
+      const res = await fetch(`https://e-bikroy-server.vercel.app/products/${brandName}`);
       const data = await res.json();
       return data;
     },

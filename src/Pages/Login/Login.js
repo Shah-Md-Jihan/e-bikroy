@@ -18,7 +18,7 @@ const Login = () => {
   const [getUserDb, setUserDb] = useState(null);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5000/users/${checkUser}`)
+    fetch(`https://e-bikroy-server.vercel.app/users/${checkUser}`)
       .then((res) => res.json())
       .then((data) => {
         setUserDb(data);
@@ -47,7 +47,7 @@ const Login = () => {
   // user data save in db
   const saveUserInDB = (name, email) => {
     const usersData = { name, email, role: "user" };
-    fetch("http://127.0.0.1:5000/users", {
+    fetch("https://e-bikroy-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -11,7 +11,7 @@ const Navbar = () => {
 
   useEffect(() => {
     if (user?.uid) {
-      fetch(`http://127.0.0.1:5000/users/${user?.email}`)
+      fetch(`https://e-bikroy-server.vercel.app/users/${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
           setUserInfo(data);
@@ -26,7 +26,7 @@ const Navbar = () => {
   };
 
   const handleMakeSeller = (id) => {
-    fetch(`http://localhost:5000/users/activity/change/true/${id}`, {
+    fetch(`https://e-bikroy-server.vercel.app/users/activity/change/true/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -40,7 +40,7 @@ const Navbar = () => {
   };
   const handleMakeUser = (id) => {
     // console.log(id);
-    fetch(`http://localhost:5000/users/activity/change/false/${id}`, {
+    fetch(`https://e-bikroy-server.vercel.app/users/activity/change/false/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -64,9 +64,7 @@ const Navbar = () => {
   const menus = (
     <React.Fragment>
       <li>
-        <NavLink style={navLinkStyle} to="/allAdd">
-          All Adds
-        </NavLink>
+        <NavLink to="/allAdd">All Adds</NavLink>
       </li>
       {!user?.uid && (
         <li>
@@ -84,17 +82,17 @@ const Navbar = () => {
         </li>
       )}
       <li className="lg:hidden">
-        <NavLink style={navLinkStyle} to="/" className="text-accent font-bold">
+        <NavLink to="/" className="text-accent font-bold">
           Post Add
         </NavLink>
       </li>
       <li>
-        <NavLink style={navLinkStyle} to="/" className="lg:hidden">
+        <NavLink to="/" className="lg:hidden">
           Profile
         </NavLink>
       </li>
       <li>
-        <NavLink style={navLinkStyle} onClick={handleLogOut} className="lg:hidden">
+        <NavLink onClick={handleLogOut} className="lg:hidden">
           Logout
         </NavLink>
       </li>

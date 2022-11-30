@@ -16,7 +16,7 @@ const Register = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch(`http://127.0.0.1:5000/users/${checkUser}`);
+      const res = await fetch(`https://e-bikroy-server.vercel.app/users/${checkUser}`);
       const data = await res.json();
       return data;
     },
@@ -38,6 +38,7 @@ const Register = () => {
           .then(() => {
             saveUserInDB(userData.name, userData.email);
             toast.success("Sign up success!");
+            navigate("/");
           })
           .catch((error) => console.error(error));
       })
@@ -47,7 +48,7 @@ const Register = () => {
   // user data save in db
   const saveUserInDB = (name, email) => {
     const usersData = { name, email, role: "user" };
-    fetch("http://127.0.0.1:5000/users", {
+    fetch("https://e-bikroy-server.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

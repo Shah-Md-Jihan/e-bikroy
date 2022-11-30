@@ -6,7 +6,7 @@ const RecentAdds = () => {
   const { data: advertisement, isUserLoading } = useQuery({
     queryKey: ["advertisement"],
     queryFn: async () => {
-      const res = await fetch(`http://127.0.0.1:5000/adds/advertisement`);
+      const res = await fetch(`https://e-bikroy-server.vercel.app/adds/advertisement`);
       const data = await res.json();
       return data;
     },

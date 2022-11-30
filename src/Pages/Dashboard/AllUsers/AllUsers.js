@@ -6,20 +6,20 @@ const AllUsers = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const res = await fetch("http://127.0.0.1:5000/sellers");
+      const res = await fetch("https://e-bikroy-server.vercel.app/sellers");
       const data = await res.json();
       return data;
     },
   });
 
   const handleMakeVerified = (id, email) => {
-    fetch(`http://localhost:5000/users/verify/${id}`, {
+    fetch(`https://e-bikroy-server.vercel.app/users/verify/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          fetch(`http://localhost:5000/add/verify/seller/${email}`, {
+          fetch(`https://e-bikroy-server.vercel.app/add/verify/seller/${email}`, {
             method: "PUT",
           })
             .then((res) => res.json())
@@ -36,7 +36,7 @@ const AllUsers = () => {
   const handleDeleteSeller = (id) => {
     const proceed = window.confirm("Are sure to delete this product?");
     if (proceed) {
-      fetch(`http://127.0.0.1:5000/user/delete/${id}`, {
+      fetch(`https://e-bikroy-server.vercel.app/user/delete/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

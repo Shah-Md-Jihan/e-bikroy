@@ -1,3 +1,20 @@
+# Site Name
+
+## e-Bikroy
+
+# Live Site Link
+
+## link:
+
+## Complete project with
+
+- React Router Dom
+- Mongo DB
+- Tailwind CSS
+- Daisy UI
+- React Icons
+- Firebase Authentication
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

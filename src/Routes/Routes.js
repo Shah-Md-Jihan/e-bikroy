@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
             <BrandDetails></BrandDetails>
           </PrivateRoute>
         ),
-        loader: ({ params }) => fetch(`http://127.0.0.1:5000/category/${params.id}`),
+        loader: ({ params }) => fetch(`https://e-bikroy-server.vercel.app/category/${params.id}`),
       },
 
       {
@@ -80,7 +80,7 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/payment/:orderId",
         element: <Payment></Payment>,
-        loader: ({ params }) => fetch(`http://127.0.0.1:5000/order/${params.orderId}`),
+        loader: ({ params }) => fetch(`https://e-bikroy-server.vercel.app/order/${params.orderId}`),
       },
       {
         path: "/dashboard/add/brand",

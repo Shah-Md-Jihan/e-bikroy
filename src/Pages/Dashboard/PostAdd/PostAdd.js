@@ -13,7 +13,7 @@ const PostAdd = () => {
   const { data: brands, isLoading } = useQuery({
     queryKey: ["brand"],
     queryFn: async () => {
-      const res = await fetch("http://127.0.0.1:5000/brands");
+      const res = await fetch("https://e-bikroy-server.vercel.app/brands");
       const data = await res.json();
       return data;
     },
@@ -21,7 +21,7 @@ const PostAdd = () => {
   const { data: userInfo, isUserLoading } = useQuery({
     queryKey: ["userInfo"],
     queryFn: async () => {
-      const res = await fetch(`http://127.0.0.1:5000/users/${user?.email}`);
+      const res = await fetch(`https://e-bikroy-server.vercel.app/users/${user?.email}`);
       const data = await res.json();
       return data;
     },
@@ -64,7 +64,7 @@ const PostAdd = () => {
             advertisement: "false",
           };
           //   save adds in database
-          fetch("http://127.0.0.1:5000/post/add", {
+          fetch("https://e-bikroy-server.vercel.app/post/add", {
             method: "POST",
             headers: {
               "content-type": "application/json",

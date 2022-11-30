@@ -30,7 +30,7 @@ const AddBrand = () => {
             image: imgData.data.url,
           };
           //   save brands in database
-          fetch("http://127.0.0.1:5000/brands", {
+          fetch("https://e-bikroy-server.vercel.app/brands", {
             method: "POST",
             headers: {
               "content-type": "application/json",

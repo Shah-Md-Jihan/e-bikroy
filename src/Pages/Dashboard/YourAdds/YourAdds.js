@@ -10,7 +10,7 @@ const YourAdds = () => {
   const handleDelete = (id) => {
     const proceed = window.confirm("Are sure to delete this product?");
     if (proceed) {
-      fetch(`http://127.0.0.1:5000/adds/delete/${id}`, {
+      fetch(`https://e-bikroy-server.vercel.app/adds/delete/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -30,14 +30,14 @@ const YourAdds = () => {
   } = useQuery({
     queryKey: ["yourProducts"],
     queryFn: async () => {
-      const res = await fetch(`http://127.0.0.1:5000/adds/${user?.email}`);
+      const res = await fetch(`https://e-bikroy-server.vercel.app/adds/${user?.email}`);
       const data = await res.json();
       return data;
     },
   });
 
   const handleMakeAdvertisement = (id) => {
-    fetch(`http://127.0.0.1:5000/adds/make/advertisement/${id}`, {
+    fetch(`https://e-bikroy-server.vercel.app/adds/make/advertisement/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())

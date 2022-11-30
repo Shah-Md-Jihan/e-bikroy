@@ -5,7 +5,7 @@ const useSeller = (email) => {
   const [isSellerLoading, setSellerLoading] = useState(true);
   useEffect(() => {
     if (email) {
-      fetch(`http://127.0.0.1:5000/users/seller/${email}`)
+      fetch(`https://e-bikroy-server.vercel.app/users/seller/${email}`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

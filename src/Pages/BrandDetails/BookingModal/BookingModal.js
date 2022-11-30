@@ -28,7 +28,7 @@ const BookingModal = ({ bookedLaptop, loggedInUser, setBookedLaptop, refetch }) 
     // console.log(data);
     // console.log(bookedLaptop);
     //   save adds in database
-    fetch("http://127.0.0.1:5000/order/add", {
+    fetch("https://e-bikroy-server.vercel.app/order/add", {
       method: "POST",
       headers: {
         "content-type": "application/json",
