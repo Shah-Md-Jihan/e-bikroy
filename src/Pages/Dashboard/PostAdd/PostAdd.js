@@ -80,7 +80,7 @@ const PostAdd = () => {
         }
       });
   };
-  if (isLoading || isUserLoading) {
+  if (isUserLoading || isLoading) {
     return <Loader></Loader>;
   }
   return (

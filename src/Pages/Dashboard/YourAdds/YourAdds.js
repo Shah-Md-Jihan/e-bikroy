@@ -50,6 +50,10 @@ const YourAdds = () => {
       });
   };
 
+  if (isLoading) {
+    return <h1 className="text-primary text-xl font-semibold">Loading...</h1>;
+  }
+
   return (
     <div>
       <h2 className="text-2xl">Your adds</h2>

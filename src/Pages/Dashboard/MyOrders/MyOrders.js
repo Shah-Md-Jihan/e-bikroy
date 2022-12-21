@@ -27,7 +27,7 @@ const MyOrders = () => {
   });
   // setOrdersLoading(false);
   if (isLoading) {
-    return <h1>Loading</h1>;
+    return <h1 className="text-primary text-xl font-semibold">Loading...</h1>;
   }
   return (
     <div>
