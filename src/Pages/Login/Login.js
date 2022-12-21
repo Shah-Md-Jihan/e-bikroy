@@ -35,8 +35,25 @@ const Login = () => {
   const handleLogin = (data) => {
     login(data.email, data.password)
       .then((user) => {
+        const currentUser = {
+          email: user?.user?.email,
+        };
+        console.log(currentUser);
         setLoginError("");
-        navigate(from, { replace: true });
+        // get jwt token
+        fetch("http://127.0.0.1:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            localStorage.setItem("e-Bikroy-token", data.token);
+            navigate(from, { replace: true });
+          });
         toast.success("Successfully login!");
       })
       .catch((error) => {

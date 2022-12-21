@@ -4,7 +4,7 @@ const SingleRecentAdd = ({ add }) => {
   return (
     <div className="card card-side bg-base-100 shadow-xl pl-5">
       <figure>
-        <img src={add?.image} className="w-40" alt="Movie" />
+        <img src={add?.image} className="w-40 px-8" alt="Movie" />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{add?.name}</h2>

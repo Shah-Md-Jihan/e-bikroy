@@ -8,14 +8,18 @@ const MyOrders = () => {
   const { data: orders, refetch } = useQuery({
     queryKey: ["orders"],
     queryFn: async () => {
-      const res = await fetch(`https://e-bikroy-server.vercel.app/order/all/${user?.email}`);
+      const res = await fetch(`https://e-bikroy-server.vercel.app/order/all/${user?.email}`, {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("e-Bikroy-token")}`,
+        },
+      });
       const data = await res.json();
       return data;
     },
   });
   return (
     <div>
-      <h1 className="text-2xl mb-5">My Orders</h1>
+      <h1 className="text-2xl mb-5">My Orderskkkkk</h1>
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>

@@ -11,7 +11,7 @@ const SingleCategory = ({ brand }) => {
         </figure>
         <div className="card-body">
           <h2 className="card-title">{name}</h2>
-          <p>Click the button to watch on Jetflix app.</p>
+          <p>Click to show all {name} laptops</p>
         </div>
       </div>
     </Link>
