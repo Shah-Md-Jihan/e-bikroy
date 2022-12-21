@@ -1,11 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
+import Loader from "../../../Shared/Loader/Loader";
 
 const MyOrders = () => {
+  const [ordersLoading, setOrdersLoading] = useState(false);
   const { user } = useContext(AuthContext);
-  const { data: orders, refetch } = useQuery({
+  // setOrdersLoading(true);
+  const {
+    data: orders,
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["orders"],
     queryFn: async () => {
       const res = await fetch(`https://e-bikroy-server.vercel.app/order/all/${user?.email}`, {
@@ -17,6 +25,10 @@ const MyOrders = () => {
       return data;
     },
   });
+  // setOrdersLoading(false);
+  if (isLoading) {
+    return <h1>Loading</h1>;
+  }
   return (
     <div>
       <h1 className="text-2xl mb-5">My Orderskkkkk</h1>
