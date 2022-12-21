@@ -2,6 +2,8 @@ import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import bannerImage from "../../../assets/images/banner/banner.jpg";
+import bannerLaptop1 from "../../../assets/images/banner/banner_laptop.jpg";
+import bannerLaptop2 from "../../../assets/images/banner/banner_laptop2.jpg";
 
 const Banner = () => {
   return (
@@ -21,8 +23,8 @@ const Banner = () => {
                 </p>
               </div>
             </div>
-            <div className="w-full">
-              <img src={bannerImage} alt="banner image" />
+            <div className="w-full p-8">
+              <img src={bannerLaptop1} className="rounded-lg" alt="banner image" />
             </div>
           </div>
         </div>
@@ -42,8 +44,8 @@ const Banner = () => {
                 </p>
               </div>
             </div>
-            <div className="w-full">
-              <img src={bannerImage} alt="banner image" />
+            <div className="w-full p-8">
+              <img src={bannerLaptop2} className="rounded-lg" alt="banner image" />
             </div>
           </div>
         </div>
@@ -63,8 +65,8 @@ const Banner = () => {
                 </p>
               </div>
             </div>
-            <div className="w-full">
-              <img src={bannerImage} alt="banner image" />
+            <div className="w-full p-8">
+              <img src={bannerImage} className="rounded-lg" alt="banner image" />
             </div>
           </div>
         </div>
