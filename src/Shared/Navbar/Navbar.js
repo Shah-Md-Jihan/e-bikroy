@@ -3,21 +3,28 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import toast from "react-hot-toast";
 import { FaAngleDown } from "react-icons/fa";
+import Loader from "../Loader/Loader";
+import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState(null);
 
-  useEffect(() => {
-    if (user?.uid) {
-      fetch(`https://e-bikroy-server.vercel.app/users/${user?.email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setUserInfo(data);
-        });
-    }
-  }, [user?.email]);
+  const navigate = useNavigate();
+
+  const [navbarLoading, setNavbarLoading] = useState(false);
+
+  const { data: userInfo = [], refetch } = useQuery({
+    queryKey: ["userInfo", user?.email],
+    queryFn: async () => {
+      if (user?.email === null) {
+        return <Loader></Loader>;
+      } else {
+        const res = await fetch(`https://e-bikroy-server.vercel.app/users/${user?.email}`);
+        const data = await res.json();
+        return data;
+      }
+    },
+  });
 
   const navLinkStyle = ({ isActive }) => {
     return {
@@ -26,6 +33,7 @@ const Navbar = () => {
   };
 
   const handleMakeSeller = (id) => {
+    setNavbarLoading(true);
     fetch(`https://e-bikroy-server.vercel.app/users/activity/change/true/${id}`, {
       method: "PUT",
     })
@@ -33,20 +41,23 @@ const Navbar = () => {
       .then((data) => {
         console.log(data);
         if (data.modifiedCount > 0) {
+          setNavbarLoading(false);
+          refetch();
           toast.success("You are seller now!");
           navigate("/");
         }
       });
   };
   const handleMakeUser = (id) => {
-    // console.log(id);
+    setNavbarLoading(true);
     fetch(`https://e-bikroy-server.vercel.app/users/activity/change/false/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        setNavbarLoading(false);
         if (data.modifiedCount > 0) {
+          refetch();
           toast.success("You are User now!");
           navigate("/");
         }
@@ -120,6 +131,7 @@ const Navbar = () => {
           </NavLink>
         </li>
       )}
+
       {user?.uid && userInfo?.role === "seller" && (
         <div className="dropdown mt-1">
           <label tabIndex={4} className="btn m-1 bg-blue-600 border-none">
@@ -127,12 +139,15 @@ const Navbar = () => {
             <FaAngleDown className="ml-2" />
           </label>
           <ul tabIndex={4} className="dropdown-content menu p-2 shadow bg-blue-600  rounded-b-lg  w-52">
-            <li>
-              <label onClick={() => handleMakeSeller(userInfo?._id)}>Seller</label>
-            </li>
-            <li>
-              <label onClick={() => handleMakeUser(userInfo?._id)}>User</label>
-            </li>
+            {userInfo?.active === "false" ? (
+              <li>
+                <label onClick={() => handleMakeSeller(userInfo?._id)}>Seller</label>
+              </li>
+            ) : (
+              <li>
+                <label onClick={() => handleMakeUser(userInfo?._id)}>User</label>
+              </li>
+            )}
           </ul>
         </div>
       )}
@@ -144,9 +159,9 @@ const Navbar = () => {
     </React.Fragment>
   );
 
-  // if (isLoading) {
-  //   return <Loader></Loader>;
-  // }
+  if (navbarLoading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <nav>

@@ -10,6 +10,7 @@ const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email);
   const [isSeller, isSellerLoading] = useSeller(user?.email);
+  // const [isSeller, isSellerLoading] = useSeller(user?.email);
 
   const navLinkStyle = ({ isActive }) => {
     return {
