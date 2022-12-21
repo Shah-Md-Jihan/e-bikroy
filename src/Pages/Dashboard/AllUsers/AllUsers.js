@@ -3,7 +3,11 @@ import React from "react";
 import toast from "react-hot-toast";
 
 const AllUsers = () => {
-  const { data: users = [], refetch } = useQuery({
+  const {
+    data: users = [],
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await fetch("https://e-bikroy-server.vercel.app/sellers");
@@ -48,6 +52,10 @@ const AllUsers = () => {
         });
     }
   };
+
+  if (isLoading) {
+    return <h1 className="text-primary text-xl font-semibold">Loading...</h1>;
+  }
 
   return (
     <div>

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const AllBrands = () => {
-  const { data: brands = [] } = useQuery({
+  const { data: brands = [], isLoading } = useQuery({
     queryKey: ["brands"],
     queryFn: async () => {
       const res = await fetch("https://e-bikroy-server.vercel.app/brands");
@@ -10,6 +10,9 @@ const AllBrands = () => {
       return data;
     },
   });
+  if (isLoading) {
+    return <h1 className="text-primary text-xl font-semibold">Loading...</h1>;
+  }
   return (
     <div className="p-10">
       <h2 className="text-2xl mb-6">All Brands</h2>
@@ -28,7 +31,7 @@ const AllBrands = () => {
               <tr key={brand?._id}>
                 <td>{i + 1}</td>
                 <td>
-                  <img src={brand?.image} className="w-48" alt="brand logo" />
+                  <img src={brand?.image} className="w-48 p-10" alt="brand logo" />
                 </td>
                 <td>{brand?.name}</td>
                 <td>
